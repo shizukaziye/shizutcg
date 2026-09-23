@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ShizuTCG — Shizukaziye's trading card tools</title>
+<meta name="description" content="ShizuTCG — every trading card tool Shizukaziye has built: a Pokémon, Riftbound and One Piece price tracker, a Chinese-name card finder, a Riftbound tier list maker and flex sheet, and a Pokémon binder designer. One page, all the links." />
+<meta name="theme-color" content="#0c0d12" />
+<link rel="canonical" href="https://shizukaziye.github.io/shizutcg/" />
+
+<!-- Open Graph / Twitter -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="ShizuTCG — Shizukaziye's trading card tools" />
+<meta property="og:description" content="Every Pokémon, Riftbound & One Piece tool I've built, in one place." />
+<meta property="og:url" content="https://shizukaziye.github.io/shizutcg/" />
+<meta property="og:image" content="https://shizukaziye.github.io/shizutcg/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<!-- Inline SVG favicon: a purple card -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='5' y='3' width='22' height='26' rx='3' fill='%23c78cff'/%3E%3Crect x='8' y='6' width='16' height='11' rx='1.5' fill='%23fff' fill-opacity='.85'/%3E%3Cpath d='M9 21h14M9 24.5h9' stroke='%23fff' stroke-opacity='.7' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E" />
+
+<style>
+  :root{
+    --bg:#0c0d12;
+    --surface:#15151e;
+    --surface-2:#1b1b27;
+    --border:#282836;
+    --text:#e7e7ee;
+    --muted:#9a9db2;
+    --faint:#6d7084;
+    --purple:#c78cff;
+    --purple-dim:#7d4fb3;
+    --purple-light:#e6d2ff;
+    --blue:#62c6df;
+    --green:#5fd08a;
+    --gold:#e8b75c;
+    --red:#ff6b7a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:
+      radial-gradient(1100px 520px at 50% -8%, rgba(199,140,255,.12), transparent 70%),
+      radial-gradient(900px 600px at 85% 110%, rgba(98,198,223,.06), transparent 70%),
+      var(--bg);
+    color:var(--text);
+    line-height:1.55;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1040px;margin:0 auto;padding:0 20px 72px}
+
+  /* ---------- Hero ---------- */
+  header{padding:74px 0 30px;text-align:center}
+  .eyebrow{
+    font-size:12px;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--purple);font-weight:600;margin-bottom:18px;
+  }
+  h1{
+    font-size:clamp(46px,11vw,82px);font-weight:800;line-height:.95;
+    letter-spacing:-.03em;
+    background:linear-gradient(180deg,#fff 0%,var(--purple-light) 55%,var(--purple) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    margin-bottom:18px;
+  }
+  .tagline{
+    color:var(--muted);font-size:clamp(15px,2.6vw,18px);
+    max-width:560px;margin:0 auto;
+  }
+  .meta-row{
+    margin-top:22px;display:flex;gap:9px;justify-content:center;flex-wrap:wrap;
+    font-size:13px;color:var(--faint);
+  }
+  .pill-stat{
+    display:inline-flex;align-items:center;gap:7px;
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:999px;padding:5px 13px;color:var(--muted);
+  }
+  .dot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80aa}
+
+  /* ---------- Connect row (channels + support) ---------- */
+  .connect{
+    margin-top:28px;display:flex;gap:11px;justify-content:center;flex-wrap:wrap;
+  }
+  .chan{
+    display:inline-flex;align-items:center;gap:9px;
+    height:44px;padding:0 18px;border-radius:999px;
+    font-size:14.5px;font-weight:600;letter-spacing:-.01em;text-decoration:none;
+    background:var(--surface);border:1px solid var(--border);color:var(--text);
+    transition:transform .16s ease,border-color .16s ease,background .16s ease,color .16s ease;
+  }
+  .chan svg{flex-shrink:0}
+  .chan:hover{transform:translateY(-2px);background:var(--surface-2)}
+  .chan.twitch:hover{color:#a970ff;border-color:#6d3fd1}
+  .chan.youtube:hover{color:#ff5757;border-color:#c23b3b}
+  .chan:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
+  .chan.support{
+    color:#0c0d12;border:none;font-weight:700;
+    background:linear-gradient(180deg,var(--purple-light),var(--purple));
+    box-shadow:0 2px 0 var(--purple-dim);
+  }
+  .chan.support:hover{filter:brightness(1.06)}
+  .chan.support:focus-visible{outline:2px solid #f3eaff}
+  @media (prefers-reduced-motion:reduce){.chan{transition:none}}
+
+  /* ---------- Sections ---------- */
+  .section{margin-top:46px}
+  .section-head{
+    display:flex;align-items:baseline;gap:12px;margin:0 4px 16px;
+  }
+  .section-head h2{
+    font-size:14px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+    color:var(--text);
+  }
+  .section-head .rule{flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
+
+  /* ---------- Cards ---------- */
+  .grid{
+    display:grid;gap:16px;
+    grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
+  }
+  .card{
+    position:relative;display:flex;flex-direction:column;
+    background:var(--surface);border:1px solid var(--border);
+    border-radius:14px;padding:20px 20px 18px;
+    text-decoration:none;color:inherit;overflow:hidden;
+    transition:transform .16s ease,border-color .16s ease,background .16s ease,box-shadow .16s ease;
+  }
+  .card::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:3px;
+    background:var(--accent,var(--purple));opacity:.85;
+    transform:scaleX(0);transform-origin:left;transition:transform .22s ease;
+  }
+  .card:hover{
+    transform:translateY(-3px);
+    background:var(--surface-2);
+    border-color:var(--accent,var(--purple));
+    box-shadow:0 12px 30px -14px rgba(0,0,0,.7);
+  }
+  .card:hover::before{transform:scaleX(1)}
+  .card:focus-visible{outline:2px solid var(--accent,var(--purple));outline-offset:2px}
+
+  .card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .tag{
+    font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--accent,var(--purple));
+    background:color-mix(in srgb,var(--accent,var(--purple)) 14%,transparent);
+    border:1px solid color-mix(in srgb,var(--accent,var(--purple)) 30%,transparent);
+    border-radius:999px;padding:3px 10px;
+  }
+  .arrow{color:var(--faint);transition:transform .16s ease,color .16s ease;flex-shrink:0}
+  .card:hover .arrow{color:var(--accent,var(--purple));transform:translate(2px,-2px)}
+
+  .card h3{font-size:18px;font-weight:700;letter-spacing:-.01em;margin-bottom:7px}
+  .card p{font-size:14px;color:var(--muted);flex:1}
+  .card .host{
+    margin-top:14px;font-size:12px;color:var(--faint);
+    display:flex;align-items:center;gap:6px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+
+  .blue{--accent:var(--blue)}
+  .green{--accent:var(--green)}
+  .gold{--accent:var(--gold)}
+  .red{--accent:var(--red)}
+
+  /* ---------- Footer ---------- */
+  footer{
+    margin-top:60px;padding-top:26px;border-top:1px solid var(--border);
+    text-align:center;color:var(--faint);font-size:13px;line-height:1.7;
+  }
+  footer a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border)}
+  footer a:hover{color:var(--purple);border-color:var(--purple-dim)}
+  .footer-links{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+  .disclaimer{max-width:560px;margin:0 auto;color:var(--faint);font-size:12px}
+  .elsewhere{margin:0 auto 14px;max-width:560px;color:var(--muted)}
+
+  @media (max-width:520px){
+    header{padding:54px 0 22px}
+    .card{padding:18px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Pokémon · Riftbound · One Piece</div>
+    <h1>ShizuTCG</h1>
+    <p class="tagline">Everything I've built for trading card games — prices, sourcing, tier lists and binder design, in one place. Bookmark it.</p>
+    <div class="meta-row">
+      <span class="pill-stat"><span class="dot"></span>5 live tools</span>
+      <span class="pill-stat">Free &amp; in-browser</span>
+      <span class="pill-stat">No login</span>
+    </div>
+    <div class="connect">
+      <a class="chan twitch" href="https://twitch.tv/shizukaziye" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.3 3 3 6.5v12.2h4.2V21h2.3l2.2-2.3h3.4L21 14V3H4.3zm14.5 10.3-2.6 2.6h-3.4l-2.2 2.2v-2.2H7.9V4.7h10.9v8.6zM15.6 7v4.6h-1.5V7h1.5zm-4.1 0v4.6H10V7h1.5z"/></svg>
+        Twitch
+      </a>
+      <a class="chan youtube" href="https://www.youtube.com/@shizukaziye" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23 7.5a3 3 0 0 0-2.1-2.1C19 4.9 12 4.9 12 4.9s-7 0-8.9.5A3 3 0 0 0 1 7.5C.5 9.4.5 12 .5 12s0 2.6.5 4.5a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5A3 3 0 0 0 23 16.5c.5-1.9.5-4.5.5-4.5s0-2.6-.5-4.5zM9.8 15.3V8.7l5.7 3.3-5.7 3.3z"/></svg>
+        YouTube
+      </a>
+      <a class="chan support" href="https://ko-fi.com/shizukaziye" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 4h13.5A4.5 4.5 0 0 1 22 8.5 4.5 4.5 0 0 1 17.5 13H17a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V5a1 1 0 0 1 1-1zm13 3v4h.5A2.5 2.5 0 0 0 20 8.5 2.5 2.5 0 0 0 17.5 6H17v1zM3 20h14v2H3v-2z"/></svg>
+        Support
+      </a>
+    </div>
+  </header>
+
+  <!-- ============ Prices & Sourcing ============ -->
+  <section class="section">
+    <div class="section-head"><h2>Prices &amp; Sourcing</h2><span class="rule"></span></div>
+    <div class="grid">
+
+      <a class="card" href="https://tcg-price-tracker.shizukaziye.workers.dev/" rel="noopener">
+        <div class="card-top">
+          <span class="tag">Tracker · Daily prices</span>
+          <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        </div>
+        <h3>TCG Price Tracker</h3>
+        <p>Sealed product profit against MSRP, Chinese and European prices against the US market, pack and box EV, and master-set cost — Pokémon, Riftbound and One Piece, refreshed every day.</p>
+        <div class="host">tcg-price-tracker.shizukaziye.workers.dev</div>
+      </a>
+
+      <a class="card" href="https://shizukaziye.github.io/cn-card-finder/" rel="noopener">
+        <div class="card-top">
+          <span class="tag">Sourcing</span>
+          <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        </div>
+        <h3>CN Card Finder</h3>
+        <p>Find a Pokémon, One Piece or Riftbound card in English, confirm the picture, and get the Chinese name + search strings for jihuanshe / Superbuy / Taobao.</p>
+        <div class="host">shizukaziye.github.io/cn-card-finder</div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============ Riftbound ============ -->
+  <section class="section">
+    <div class="section-head"><h2>Riftbound</h2><span class="rule"></span></div>
+    <div class="grid">
+
+      <a class="card blue" href="https://shizukaziye.github.io/riftbound-tierlist/" rel="noopener">
+        <div class="card-top">
+          <span class="tag">Tier list</span>
+          <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        </div>
+        <h3>Riftbound Tier List Maker</h3>
+        <p>Search every Riftbound card by name, code, tag or rules text, drag it into a tier while the art stays in view, then share a link or export a PNG.</p>
+        <div class="host">shizukaziye.github.io/riftbound-tierlist</div>
+      </a>
+
+      <a class="card blue" href="https://shizukaziye.github.io/riftbound-flex-sheet/" rel="noopener">
+        <div class="card-top">
+          <span class="tag">Deck data</span>
+          <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        </div>
+        <h3>Nine-Legend Flex Sheet</h3>
+        <p>Every card the Wuhan top 32 and Barcelona top 64 lists ran for nine legends, at the max copies any list played, with a separate or combined sideboard view and battlefields.</p>
+        <div class="host">shizukaziye.github.io/riftbound-flex-sheet</div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============ Pokémon ============ -->
+  <section class="section">
+    <div class="section-head"><h2>Pokémon</h2><span class="rule"></span></div>
+    <div class="grid">
+
+      <a class="card gold" href="https://shizukaziye.github.io/michi-binder/" rel="noopener">
+        <div class="card-top">
+          <span class="tag">Designer</span>
+          <svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+        </div>
+        <h3>Michi Binder</h3>
+        <p>Design binder pages the Michi way: 21,000+ cards searchable by name, artist or set, pockets left blank on purpose, your own inserts cut across pockets, and printing at true card size.</p>
+        <div class="host">shizukaziye.github.io/michi-binder</div>
+      </a>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-links">
+      <a href="https://twitch.tv/shizukaziye" target="_blank" rel="noopener">Twitch</a>
+      <a href="https://www.youtube.com/@shizukaziye" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://ko-fi.com/shizukaziye" target="_blank" rel="noopener">Ko-fi</a>
+      <a href="https://github.com/shizukaziye" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <p class="elsewhere">Looking for the Lost Ark, League or finance tools? Those live at <a href="https://www.loseii.com/">loseii.com</a>.</p>
+    <p class="disclaimer">
+      Tools by <strong>Shizukaziye</strong>.
+      Unofficial fan-made tools — not affiliated with or endorsed by The Pokémon Company, Nintendo, Riot Games, or Bandai.
+      All card images and trademarks belong to their respective owners.
+    </p>
+  </footer>
+
+</div>
+
+<!-- Shared ShizuTCG chrome — the two lines every page gets.
+     nav.js  = fixed top navigation (wordmark + Tools menu)
+     social-bar.js = floating Twitch / YouTube / Ko-fi bar -->
+<script src="https://shizukaziye.github.io/shizutcg/nav.js" defer></script>
+<script src="https://shizukaziye.github.io/shizutcg/social-bar.js" defer></script>
+</body>
+</html>
