@@ -35,7 +35,7 @@
     {
       label: "Riftbound",
       items: [
-        { name: "Market Index",           url: "https://tcg-price-tracker.shizukaziye.workers.dev/rb-index.html" },
+        { name: "Market Index",           url: "https://tcg-price-tracker.shizukaziye.workers.dev/rb-index" },
         { name: "Tier List Maker",        url: "https://shizukaziye.github.io/riftbound-tierlist/" },
         { name: "Nine-Legend Flex Sheet", url: "https://shizukaziye.github.io/riftbound-flex-sheet/" }
       ]

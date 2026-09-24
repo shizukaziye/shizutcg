@@ -19,7 +19,7 @@ Every tool has its own repo. This repo holds only the hub and the chrome.
 - [CN Card Finder](https://shizukaziye.github.io/cn-card-finder/) — EN→CN card names + search strings for sourcing from China
 
 **Riftbound**
-- [Market Index](https://tcg-price-tracker.shizukaziye.workers.dev/rb-index.html) — SPY-style chain-linked index of every Riftbound single: total, per set, per tier (commons to signatures, overnumbered, promos), three weightings, volume, movers
+- [Market Index](https://tcg-price-tracker.shizukaziye.workers.dev/rb-index) — SPY-style chain-linked index of every Riftbound single: total, per set, per tier (commons to signatures, overnumbered, promos), three weightings, volume, movers
 - [Tier List Maker](https://shizukaziye.github.io/riftbound-tierlist/) — search every Riftbound card, drag into tiers, share link / PNG export
 - [Nine-Legend Flex Sheet](https://shizukaziye.github.io/riftbound-flex-sheet/) — flex cards per legend from the Wuhan top 32 + Barcelona top 64, max copies any list ran
 
