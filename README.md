@@ -21,6 +21,7 @@ Every tool has its own repo. This repo holds only the hub and the chrome.
 **Riftbound**
 - [Market Index](https://tcg-price-tracker.shizukaziye.workers.dev/rb-index) — SPY-style chain-linked index of every Riftbound single: total, per set, per tier (commons to signatures, overnumbered, promos), three weightings, volume, movers
 - [Tier List Maker](https://shizukaziye.github.io/riftbound-tierlist/) — search every Riftbound card, drag into tiers, share link / PNG export
+- [Radiance Pre-Rift Tier List](https://shizukaziye.github.io/riftbound-prerift-tierlist/) — Challenger TCG's sealed ratings for all nine Radiance Pre-Rift legends, card by card with full art; tap a card for its text and every legend's rating
 - [Nine-Legend Flex Sheet](https://shizukaziye.github.io/riftbound-flex-sheet/) — flex cards per legend from the Wuhan top 32 + Barcelona top 64, max copies any list ran
 
 **Pokémon**
